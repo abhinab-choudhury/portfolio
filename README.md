@@ -8,7 +8,9 @@ Built with next.js, [shadcn/ui](https://ui.shadcn.com/), and [magic ui](https://
 
 # Features
 
-- Setup only takes a few minutes by editing the [single config file](./src/data/resume.tsx)
+- Add CSM like Sanity as CMS
+- Imporving UI by modifing the Project Images and addig a Sepatate Section for Previouse Client and The Project Deployments
+- Setup only takes a few minutes by editing the [single config file](./src/data/resume.tsx
 - Built using Next.js 14, React, Typescript, Shadcn/UI, TailwindCSS, Framer Motion, Magic UI
 - Includes a blog
 - Responsive for different devices
