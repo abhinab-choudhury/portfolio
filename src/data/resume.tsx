@@ -11,7 +11,7 @@ export const DATA = {
     "I love building things and helping people. Very active on Twitter.",
   summary:
     "At present I am active freelancer, I currently a student to learning building and scaling my skills. In the present, [I pursuing degree in computer science](/#education).",
-  avatarUrl: "/me.jpeg",
+  avatarUrl: "/images/me.jpg",
   skills: [
     "React",
     "Next.js",
@@ -67,7 +67,7 @@ export const DATA = {
       badges: ["Freelance"],
       location: "Remote",
       title: "Frontend Developer",
-      logoUrl: "/bharate_core.png",
+      logoUrl: "/images/bharate_core.png",
       start: " Jul 2024",
       end: "Aug 2024",
       description:
@@ -75,11 +75,11 @@ export const DATA = {
     },
     {
       company: "Websurds",
-      href: "https://websurds.vercel.app/",
+      href: "https://websurds.com/",
       badges: ["Freelance"],
       location: "Remote",
       title: "Full Stack Developer",
-      logoUrl: "/websurds.png",
+      logoUrl: "/images/websurds.png",
       start: " Jul 2024",
       end: "Aug 2024",
       description:
@@ -103,15 +103,42 @@ export const DATA = {
       school: "Institute of Technical Education and Research - ITER",
       href: "https://www.soa.ac.in/iter",
       degree: "Computer Science and Information Technology (CSIT)",
-      logoUrl: "/iter.png",
+      logoUrl: "/images/iter.png",
       start: "2023",
       end: "2027",
     },
   ],
   projects: [
     {
+      title: "Sorting Visualizer",
+      href: "https://sorting-visualizer-beta.netlify.app/",
+      dates: "Feb 2, 2025 - Feb 5, 2025",
+      active: true,
+      description:"Helps to Visualize different Sorting Algorithms",
+      technologies: [
+        "React",
+        "Typescript",
+        "Shadcn",
+        "TailwindCSS",
+      ],
+      links: [
+        {
+          type: "Website",
+          href: "https://sorting-visualizer-beta.netlify.app/",
+          icon: <Icons.globe className="size-3" />,
+        },
+        {
+          type: "Source",
+          href: "https://github.com/abhinab-choudhury/Sorting-Visualizer",
+          icon: <Icons.github className="size-3" />,
+        },
+      ],
+      image: "/images/sorting-visualizer.png",
+      video:"",
+    },
+    {
       title: "Currency Convert",
-      href: "https://abhinab-choudhury.github.io/currency-convert/",
+      href: "abhinab-choudhury.github.io/currency-convert",
       dates: "Oct 2023 - Feb 2024",
       active: true,
       description:"Easy-to-Use currency converter application written in JavaScript",
@@ -123,7 +150,7 @@ export const DATA = {
       links: [
         {
           type: "Website",
-          href: "https://chatcollect.com",
+          href: "https://abhinab-choudhury.github.io/currency-convert/",
           icon: <Icons.globe className="size-3" />,
         },
         {
@@ -132,12 +159,12 @@ export const DATA = {
           icon: <Icons.github className="size-3" />,
         },
       ],
-      image: "/currency-convert.png",
+      image: "/images/currency-convert.png",
       video:"",
     },
     {
       title: "Password Generator",
-      href: "https://chatcollect.com",
+      href: "https://password-generator-one-black.vercel.app/",
       dates: "May 2024 - Apr 2024",
       active: true,
       description:
@@ -159,12 +186,12 @@ export const DATA = {
           icon: <Icons.github className="size-3" />,
         },
       ],
-      image: "/password-generator.png",
+      image: "/images/password-generator.png",
       video:"",
     },
     {
       title: "Futurely",
-      href: "futurely.vercel.app",
+      href: "https://futurely.vercel.app/",
       dates: "May 2024 - Apr 2024",
       active: true,
       description: "Futurely is an innovative website that helps users predict their future and provides detailed horoscopes based on their respective sun signs.",
@@ -178,7 +205,7 @@ export const DATA = {
       links: [
         {
           type: "Website",
-          href: "futurely.vercel.app",
+          href: "https://futurely.vercel.app/",
           icon: <Icons.globe className="size-3" />,
         },
         {
@@ -187,11 +214,11 @@ export const DATA = {
           icon: <Icons.github className="size-3" />,
         },
       ],
-      image: "/futurely.png",
+      image: "/images/futurely.png",
       video: "",
     },
     {
-      title: "WCat-CLI-Tool",
+      title: "Wcat CLI",
       href: "https://www.npmjs.com/package/wcat-command",
       dates: "Aug 16, 2023 - Aug 21, 2023",
       active: true,
@@ -213,7 +240,7 @@ export const DATA = {
           icon: <Icons.github className="size-3" />,
         },
       ],
-      image: "/wcat.png",
+      image: "/images/wcat.png",
       video: "",
     },
     // {
