@@ -8,7 +8,7 @@ export default function ProjectCard({
 }: {
   className?: string;
   description: string;
-  image_src: string;
+  image_src?: string;
   project_title: string;
 }) {
   return (
