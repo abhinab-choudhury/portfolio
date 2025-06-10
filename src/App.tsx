@@ -49,13 +49,13 @@ function App() {
                 project_title="ShortWave"
               />
               <ProjectCard
-                description="CodeXpert is a locally hosted AI tool that assists with solving coding problems on platforms like LeetCode, leveraging the Ollama runtime for full privacy and offline support"
+                description=" HTTP Server in C demonstrates low-level networking skills through a web server built entirely from scratch"
                 project_title="HTTP Server"
               />
             </div>
             <div>
               <ProjectCard
-                description=" HTTP Server in C demonstrates low-level networking skills through a web server built entirely from scratch"
+                description="CodeXpert is a locally hosted AI tool that assists with solving coding problems on platforms like LeetCode, leveraging the Ollama runtime for full privacy and offline support"
                 project_title="CodeXpert"
               />
               <ProjectCard
