@@ -3,10 +3,21 @@ import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import ProjectCard from "./components/project-card";
 import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
+import {
   Blocks,
   BrainCircuit,
+  Gpu,
   Octagon,
   Omega,
+  Pickaxe,
   Projector,
   QrCode,
   Rss,
@@ -81,34 +92,62 @@ function App() {
               Projects
             </h1>
           </div>
-          <div className="flex flex-wrap justify-center align-middle w-full">
-            <div>
-              <ProjectCard
-                description="ShortWave is a sleek and efficient URL shortener that features a fully interactive dashboard and built-in QR code generation. Designed for simplicity and usability, it allows users to manage, track, and share short links effortlessly while also supporting instant QR export for print and digital use."
-                header_icon={<QrCode className="w-8 h-8" />}
-                project_title="ShortWave"
-                github_url="https://github.com/abhinab-choudhury/shortwave"
-              />
-              <ProjectCard
-                description="HTTP Server in C demonstrates low-level networking skills through a web server built entirely from scratch"
-                header_icon={<ServerCog className="w-8 h-8" />}
-                project_title="HTTP Server"
-                github_url="https://github.com/abhinab-choudhury/htt"
-              />
-            </div>
-            <div>
-              <ProjectCard
-                description="CodeXpert is a locally hosted AI tool that assists with solving coding problems on platforms like LeetCode, leveraging the Ollama runtime for full privacy and offline support"
-                header_icon={<BrainCircuit className="w-8 h-8" />}
-                project_title="CodeXpert"
-              />
-              <ProjectCard
-                description="Mathstral, an AI-powered math assistant that uses the open-source Mistral model to break down and explain complex math problems with clarity and precision—perfect for students and self-learners tackling challenging concepts."
-                header_icon={<Omega className="w-8 h-8" />}
-                project_title="Mathstral"
-              />
-            </div>
+          <div className="flex flex-col justify-center align-middle w-full">
+            <ProjectCard
+              description="CodeXpert is a locally hosted AI tool that assists with solving coding problems on platforms like LeetCode, leveraging the Ollama runtime for full privacy and offline support"
+              header_icon={<BrainCircuit className="w-8 h-8" />}
+              project_title="CodeXpert"
+            />
+            <ProjectCard
+              description="Mathstral, an AI-powered math assistant that uses the open-source Mistral model to break down and explain complex math problems with clarity and precision—perfect for students and self-learners tackling challenging concepts."
+              header_icon={<Omega className="w-8 h-8" />}
+              project_title="Mathstral"
+            />
+            <ProjectCard
+              description="DeepFx Studio, an AI-powered toolkit provides a suite of advanced image editing features powered by cutting-edge deep learning techniques. From enhancing image quality to creative transformations, DeepFX Studio is designed to be a comprehensive solution for all your image processing needs."
+              header_icon={<Gpu className="w-8 h-8" />}
+              project_title="DeepFx Studio"
+            />
+            {/* <ProjectCard
+              description="HTTP Server in C demonstrates low-level networking skills through a web server built entirely from scratch"
+              header_icon={<ServerCog className="w-8 h-8" />}
+              project_title="HTTP Server"
+              github_url="https://github.com/abhinab-choudhury/htt"
+            />
+            <ProjectCard
+              description="A web crawler built in Go that crawls Stack Overflow pages and archives the data in MongoDB. It extracts the page `URL`, `title`, and the first 500 characters of the content after the `<body>` tag, storing it efficiently for future querying. The project utilizes MongoDB's Search Index feature for fast keyword-based searches."
+              header_icon={<Pickaxe className="w-8 h-8" />}
+              project_title="StackOverFlow Web-Crawler"
+              github_url="https://github.com/abhinab-choudhury/shortwave"
+            />
+            <ProjectCard
+              description="ShortWave is a sleek and efficient URL shortener that features a fully interactive dashboard and built-in QR code generation. Designed for simplicity and usability, it allows users to manage, track, and share short links effortlessly while also supporting instant QR export for print and digital use."
+              header_icon={<QrCode className="w-8 h-8" />}
+              project_title="ShortWave"
+              github_url="https://github.com/abhinab-choudhury/shortwave"
+            /> */}
           </div>
+          <Pagination className="my-5">
+            <PaginationContent>
+              <PaginationItem>
+                <PaginationPrevious href="#" />
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink href="#" isActive>1</PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink href="#">
+                  2
+                </PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationEllipsis />
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationNext href="#" />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
         </div>
 
         <div className="flex flex-col w-full">
