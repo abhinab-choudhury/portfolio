@@ -13,7 +13,7 @@ export default function BlogCard({
   gist?: string;
 }) {
   return (
-    <div className={cn(className, "p-4 w-full text-start")}>
+    <div className={cn(className, "p-4 text-start w-full")}>
       <a className="flex gap-3 items-center cursor-pointer scroll-m-20 text-xl font-semibold tracking-tight">
         <Box />
         {blog_title}

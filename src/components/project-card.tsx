@@ -4,29 +4,27 @@ import { Badge } from "./ui/badge";
 export default function ProjectCard({
   className,
   header_icon,
-  description = "No Description Found",
-  image_src = "https://placehold.co/300x200",
-  project_title = "Untitled",
+  description,
+  project_title,
   github_url,
   deployment_url,
   blog_url,
 }: {
   className?: string;
-  header_icon?: React.ReactNode;
-  description?: string;
+  header_icon: React.ReactNode;
+  description: string;
   image_src?: string;
-  project_title?: string;
+  project_title: string;
   github_url?: string;
   deployment_url?: string;
   blog_url?: string;
 }) {
   return (
-    <div className={cn(className, "w-full pb-5")}>
-      <div className="flex flex-col md:flex-row p-10 gap-5 w-full">
-        <img src={image_src} className="cursor-pointer rounded-xl" />
-        <div className="w-[100%] md:w-[50%] flex flex-col justify-between gap-4">
+    <div className={cn(className, "w-full")}>
+      <div className="flex flex-col md:flex-row w-full">
+        <div className="w-[100%] flex flex-col p-10 justify-between gap-4">
           <div className="flex flex-col gap-5">
-            <h3 className="cursor-pointer flex gap-3 items-center scroll-m-20 text-2xl font-semibold tracking-tight">
+            <h3 className="cursor-pointer text-balance flex gap-3 items-center scroll-m-20 text-2xl font-semibold tracking-tight">
               {header_icon}
               {project_title}
             </h3>
