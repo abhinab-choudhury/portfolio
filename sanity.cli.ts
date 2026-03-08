@@ -1,9 +1,11 @@
 import {defineCliConfig} from 'sanity/cli'
+import dotenv from 'dotenv'
 
+dotenv.config()
 export default defineCliConfig({
   api: {
-    projectId: 'ywowj61x',
-    dataset: 'development',
+    projectId: process.env.VITE_SANITY_PROJECT_ID,
+    dataset: process.env.VITE_SANITY_DATASET,
   },
   /**
    * Enable auto-updates for studios.
