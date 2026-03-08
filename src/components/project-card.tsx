@@ -22,7 +22,7 @@ export default function ProjectCard({
   return (
     <div className={cn(className, "w-full")}>
       <div className="flex flex-col md:flex-row w-full">
-        <div className="w-[100%] flex flex-col p-10 justify-between gap-4">
+        <div className="w-full flex flex-col p-10 justify-between gap-4">
           <div className="flex flex-col gap-5">
             <h3 className="cursor-pointer text-balance flex gap-3 items-center scroll-m-20 text-2xl font-semibold tracking-tight">
               {header_icon}
@@ -33,21 +33,21 @@ export default function ProjectCard({
           <div className="flex flex-wrap gap-1">
             {github_url && (
               <Badge variant={"default"} asChild>
-                <a href={github_url} target="_blank">
+                <a className="px-2 py-1" href={github_url} target="_blank">
                   Github
                 </a>
               </Badge>
             )}
             {deployment_url && (
               <Badge variant={"secondary"} asChild>
-                <a href={deployment_url} target="_blank">
+                <a className="px-2 py-1" href={deployment_url} target="_blank">
                   Deployment
                 </a>
               </Badge>
             )}
             {blog_url && (
               <Badge variant={"outline"} asChild>
-                <a href={blog_url} target="_blank">
+                <a className="px-2 py-1" href={blog_url} target="_blank">
                   Blog
                 </a>
               </Badge>
