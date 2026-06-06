@@ -25,3 +25,7 @@ dist-ssr
 
 .env
 .env.local
+
+# Sanity Studio
+studio/.sanity
+studio/dist

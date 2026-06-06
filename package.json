@@ -8,17 +8,11 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "format": "npx prettier --write \"**/*.{ts,tsx,js,jsx,css}\" --ignore-path .gitignore",
-    "preview": "vite preview",
-    "studio:dev": "sanity dev",
-    "studio:start": "sanity start",
-    "studio:build": "sanity build",
-    "studio:deploy": "sanity deploy",
-    "studio:deploy-graphql": "sanity graphql deploy"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.3",
     "@radix-ui/react-switch": "^1.2.5",
-    "@sanity/vision": "^5.13.0",
     "@tailwindcss/vite": "^4.1.8",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -27,15 +21,13 @@
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-router": "^7.7.1",
-    "sanity": "^5.13.0",
+    "sanity": "^5.30.0",
     "styled-components": "^6.3.11",
     "tailwind-merge": "^3.3.0",
     "tailwindcss": "^4.1.8"
   },
   "devDependencies": {
-    "@eslint/js": "^9.25.0",
-    "@sanity/eslint-config-studio": "^6.0.0",
-    "@types/node": "^24.0.0",
+    "@types/node": "^24.12.4",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
     "@vitejs/plugin-react": "^4.4.1",

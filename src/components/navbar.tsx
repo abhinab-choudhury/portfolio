@@ -1,33 +1,11 @@
-import { Octagon } from "lucide-react";
-import { Button } from "./ui/button";
-import { Github, Codolio, Hashnode, LinkedIn, X } from "./icons";
-import { Switch } from "./ui/switch";
-import useTheme from "@/hooks/useTheme";
+import {Octagon} from 'lucide-react'
+import {Button} from './ui/button'
+import {Switch} from './ui/switch'
+import useTheme from '@/hooks/useTheme'
+import type {ISocialLink} from '@/pages'
 
-export default function Navbar() {
-  const { theme, setTheme } = useTheme();
-  const socialLink: { url: string; logo: React.ReactNode }[] = [
-    {
-      url: "https://github.com/abhinab-choudhury",
-      logo: <Github className="w-5 h-5" />,
-    },
-    {
-      url: "https://codolio.com/profile/abhinab-choudhury",
-      logo: <Codolio className="w-5 h-5" />,
-    },
-    {
-      url: "https://www.linkedin.com/in/abhinab-choudhury/",
-      logo: <LinkedIn className="w-5 h-5" />,
-    },
-    {
-      url: "https://x.com/abhinabc_",
-      logo: <X className="w-5 h-5 dark:bg-white" />,
-    },
-    {
-      url: "https://abhinab-choudhury.hashnode.dev",
-      logo: <Hashnode className="w-5 h-5" />,
-    },
-  ];
+export default function Navbar({socialLink}: {socialLink: ISocialLink[]}) {
+  const {theme, setTheme} = useTheme()
 
   return (
     <div className="flex justify-between align-bottom p-10 w-full">
@@ -36,26 +14,21 @@ export default function Navbar() {
           <Octagon className="fill-accent" />
           Abhinab Choudhury
         </h1>
-        <Button variant={"link"} className="mt-2 p-0">
+        <Button variant={'link'} className="mt-2 p-0">
           @llpabhinabc_
         </Button>
         <div className="flex md:hidden gap-3">
           {socialLink.map((link, idx) => (
-            <a
-              key={idx}
-              className="hover:cursor-pointer"
-              href={link.url}
-              target="_blank"
-            >
+            <a key={idx} className="hover:cursor-pointer" href={link.url} target="_blank">
               {link.logo}
             </a>
           ))}
         </div>
       </div>
       <Switch
-        checked={theme === "dark"}
-        onCheckedChange={(checked) => setTheme(checked ? "dark" : "light")}
+        checked={theme === 'dark'}
+        onCheckedChange={(checked) => setTheme(checked ? 'dark' : 'light')}
       />
     </div>
-  );
+  )
 }
