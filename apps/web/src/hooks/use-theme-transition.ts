@@ -77,7 +77,7 @@ function transitionWithViewAPI(
     // `::view-transition-new(root)` is the snapshot of the *new* frame.
     // We animate it from a 0-radius circle at the click point outward.
     document
-      .getAnimations({subtree: true})
+      .getAnimations()
       .find(
         (a) =>
           a.effect instanceof KeyframeEffect &&
