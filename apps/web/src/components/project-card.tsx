@@ -27,7 +27,7 @@ export default function ProjectCard({
             {header_icon}
             {project_title}
           </h3>
-          <p className="text-base leading-relaxed line-clamp-3">{description}</p>
+          <p className="leading-relaxed line-clamp-3">{description}</p>
         </div>
         <div className="flex flex-wrap gap-2 mt-auto pt-2">
           {github_url && (

@@ -20,7 +20,7 @@ export default function BlogCard({className, blog_title, create_at, link, gist}:
         {blog_title}
       </a>
       <div>
-        <p className="text-base py-3 leading-relaxed">{gist}</p>
+        <p className="py-3 leading-relaxed">{gist}</p>
         <p className="text-sm text-muted-foreground font-mono">{create_at}</p>
       </div>
       <Badge variant={'outline'} className="border-2 border-dashed border-foreground font-bold">
