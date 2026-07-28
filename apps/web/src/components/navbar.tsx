@@ -1,7 +1,6 @@
 import { useRef } from 'react';
 import bundle from 'tegaki/fonts/caveat';
 import { Octagon } from 'lucide-react';
-import { Button } from '@components/ui/button';
 import { ThemeToggle } from '@components/theme-toggle';
 import { TegakiRenderer, type TegakiRendererHandle } from 'tegaki/react';
 
