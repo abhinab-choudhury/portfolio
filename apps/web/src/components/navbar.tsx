@@ -36,9 +36,6 @@ export default function Navbar() {
             </TegakiRenderer>
           </div>
         </h1>
-        <Button variant={'link'} className="mt-4 text-base">
-          @llpabhinabc_
-        </Button>
       </div>
       <ThemeToggle />
     </div>
