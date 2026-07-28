@@ -1,4 +1,50 @@
 import { Button } from "./components/ui/button";
+import {
+  Blocks,
+  BrainCircuit,
+  ChevronDown,
+  ClapperboardIcon,
+  Gpu,
+  Headphones,
+  ListTodoIcon,
+  Omega,
+  Pickaxe,
+  Projector,
+  QrCode,
+  RefreshCcw,
+  ServerCog,
+  TerminalIcon,
+  Variable,
+  WheatIcon,
+} from 'lucide-react'
+import {Github, Codolio, Hashnode, LinkedIn, X} from '@components/icons'
+import Navbar from "@components/navbar";
+import ProjectCard from "@components/project-card";
+import BlogCard from "@components/blog-card";
+import Footer from "@components/footer";
+
+export interface ISocialLink {
+  name: string
+  url: string
+  logo: React.ReactNode
+}
+
+export interface IProject {
+  project_title: string
+  description: string
+  header_icon: React.ReactNode
+  image_src?: string
+  github_url?: string
+  deployment_url?: string
+  blog_url?: string
+}
+
+export interface IRecentBlog {
+  title: string
+  gist: string
+  link: string
+  create_at: string
+}
 
 function App() {
   const projects: IProject[] = [
@@ -188,21 +234,21 @@ function App() {
   ]
 
   return (
-    <div className="max-w-4xl text-sm mx-auto flex min-h-svh flex-col items-center justify-center">
+    <div className="max-w-4xl mx-auto flex min-h-svh flex-col items-center justify-center p-4 md:p-8">
       <Navbar socialLink={socialLink} />
 
-      <div className="flex flex-col md:flex-row border w-full">
-        <div className="flex flex-col justify-between p-8 rounded-sm text-sm border-r">
-          <p>
+      <div className="brutalist-card flex flex-col md:flex-row w-full">
+        <div className="flex flex-col justify-between p-8 border-dashed border-r-2 border-foreground">
+          <p className="text-base leading-relaxed">
             I'm a passionate developer driven by curiosity, creativity, and consistency. I
             specialize in Web2 technologies, and I'm always exploring ways to build smarter, faster,
             and more impactful digital products.
           </p>
-          <p className="text-muted-foreground text-xs mt-5">-- Eat. Sleep. Code. Repeat. --</p>
+          <p className="text-muted-foreground text-sm mt-5 font-mono">-- Eat. Sleep. Code. Repeat. --</p>
         </div>
         <div className="hidden md:flex flex-col w-full md:w-[40%] gap-3 p-5">
           {socialLink.map((link, idx) => (
-            <a key={idx} href={link.url} target="_blank" className="flex gap-2">
+            <a key={idx} href={link.url} target="_blank" className="flex gap-2 text-base font-medium hover:underline">
               {link.logo}
               {link.name}
             </a>
@@ -212,13 +258,13 @@ function App() {
 
       {/* Project Section */}
       <div className="flex flex-col w-full">
-        <div className="text-left pt-10 pb-5 border-b flex justify-between">
-          <h1 className="flex gap-3 items-center mt-auto mx-5 md:lg-0 scroll-m-20 text-4xl font-extrabold tracking-tight w-full">
+        <div className="text-left pt-10 pb-5 border-y-2 border-dashed border-foreground flex justify-between">
+          <h1 className="flex gap-3 items-center mt-auto mx-5 scroll-m-20 text-4xl font-extrabold tracking-tight w-full">
             <Projector className="w-8 h-8" />
             Projects
           </h1>
         </div>
-        <div className="grid md:grid-cols-2 justify-center align-middle">
+        <div className="grid md:grid-cols-2 gap-5 m-8 items-stretch">
           {projects.map((project, idx) => (
             <ProjectCard
               key={idx}
@@ -232,7 +278,7 @@ function App() {
             />
           ))}
         </div>
-        <Button variant={'ghost'} className="w-fit mx-auto my-10">
+        <Button variant={'outline'} className="w-fit mx-auto my-10 border-2 border-dashed border-foreground font-bold uppercase tracking-wider hover:shadow-md hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all">
           more
           <ChevronDown />
         </Button>
@@ -240,8 +286,8 @@ function App() {
 
       {/* Recent Blog Section */}
       <div className="flex flex-col w-full">
-        <div className="text-left pt-10 pb-5 border-y flex justify-between">
-          <h1 className="flex gap-3 items-center mt-auto mx-5 md:lg-0 scroll-m-20 text-4xl font-extrabold tracking-tight w-full">
+        <div className="text-left pt-10 pb-5 border-y-2 border-dashed border-foreground flex justify-between">
+          <h1 className="flex gap-3 items-center mt-auto mx-5 scroll-m-20 text-4xl font-extrabold tracking-tight w-full">
             <Blocks className="w-8 h-8" />
             Recent Blog
           </h1>

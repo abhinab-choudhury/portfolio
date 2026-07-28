@@ -1,20 +1,21 @@
 import {Octagon} from 'lucide-react'
-import {Button} from './ui/button'
-import {Switch} from './ui/switch'
-import useTheme from '@/hooks/useTheme'
-import type {ISocialLink} from '@/pages'
+import {Button} from '@components/ui/button'
+import {ThemeToggle} from '@components/theme-toggle'
+import type {ISocialLink} from '../App'
 
-export default function Navbar({socialLink}: {socialLink: ISocialLink[]}) {
-  const {theme, setTheme} = useTheme()
+interface NavbarProps {
+  socialLink: ISocialLink[]
+}
 
+export default function Navbar({socialLink}: NavbarProps) {
   return (
-    <div className="flex justify-between align-bottom p-10 w-full">
+    <div className="flex justify-between align-bottom p-6 md:p-10 w-full border-b-2 border-dashed border-foreground mb-2">
       <div className="flex flex-col items-start md:flex-row gap-2">
-        <h1 className="font-semibold tracking-tight text-3xl w-[90%] flex gap-3 items-center">
+        <h1 className="font-bold tracking-tight text-2xl md:text-3xl w-[90%] flex gap-3 items-center">
           <Octagon className="fill-accent" />
           Abhinab Choudhury
         </h1>
-        <Button variant={'link'} className="mt-2 p-0">
+        <Button variant={'link'} className="mt-2 p-0 text-base">
           @llpabhinabc_
         </Button>
         <div className="flex md:hidden gap-3">
@@ -25,10 +26,7 @@ export default function Navbar({socialLink}: {socialLink: ISocialLink[]}) {
           ))}
         </div>
       </div>
-      <Switch
-        checked={theme === 'dark'}
-        onCheckedChange={(checked) => setTheme(checked ? 'dark' : 'light')}
-      />
+      <ThemeToggle />
     </div>
   )
 }

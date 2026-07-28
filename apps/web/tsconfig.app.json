@@ -6,7 +6,9 @@
     "allowArbitraryExtensions": true,
     "paths": {
       "@lib/*": ["./src/lib/*"],
-      "@components/*": ["./src/components/*"]
+      "@components/*": ["./src/components/*"],
+      "@hooks/*": ["./src/hooks/*"],
+      "@context/*": ["./src/context/*"]
     }
   },
   "include": ["src"]

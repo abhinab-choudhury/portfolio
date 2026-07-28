@@ -9,6 +9,8 @@ export default defineConfig({
     alias: {
       "@lib": path.resolve(__dirname, "./src/lib"),
       "@components": path.resolve(__dirname, "./src/components"),
+      "@hooks": path.resolve(__dirname, "./src/hooks"),
+      "@context": path.resolve(__dirname, "./src/context"),
     },
   },
 });
