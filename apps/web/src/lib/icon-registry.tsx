@@ -36,11 +36,11 @@ const lucideIcons: Record<string, LucideIcon> = {
 }
 
 const customIcons: Record<string, ReactNode> = {
-  'github': <Github className="w-9 h-9" />,
-  'linkedin': <LinkedIn className="w-9 h-9" />,
-  'x': <X className="w-9 h-9" />,
-  'codolio': <Codolio className="w-9 h-9" />,
-  'hashnode': <Hashnode className="w-9 h-9" />,
+  'github': <Github className="w-6 h-6" />,
+  'linkedin': <LinkedIn className="w-7 h-7" />,
+  'x': <X className="w-6 h-6 dark:text-black" />,
+  'codolio': <Codolio className="w-7 h-7" />,
+  'hashnode': <Hashnode className="w-6 h-6 dark:text-black" />,
 }
 
 export function getIcon(identifier: string): ReactNode {
