@@ -17,7 +17,7 @@ import {
   Variable,
   WheatIcon,
 } from 'lucide-react'
-import {Github, Codolio, Hashnode, LinkedIn, X} from '@components/icons'
+import { Github, Codolio, Hashnode, LinkedIn, X } from '@components/icons'
 import Navbar from "@components/navbar";
 import ProjectCard from "@components/project-card";
 import BlogCard from "@components/blog-card";
@@ -185,7 +185,7 @@ function App() {
     {
       name: 'Twitter',
       url: 'https://x.com/abhinabc_',
-      logo: <X className="w-5 h-5 dark:bg-white dark:rounded-xl" />,
+      logo: <X className="w-5 h-5" />,
     },
     {
       name: 'Hashnode',
@@ -235,24 +235,36 @@ function App() {
 
   return (
     <div className="max-w-4xl mx-auto flex min-h-svh flex-col items-center justify-center p-4 md:p-8">
-      <Navbar socialLink={socialLink} />
+      <Navbar />
 
       <div className="brutalist-card flex flex-col md:flex-row w-full">
-        <div className="flex flex-col justify-between p-8 border-dashed border-r-2 border-foreground">
-          <p className="text-base leading-relaxed">
+        <div className="flex flex-col justify-between p-4 md:border-r-2 md:border-dashed md:border-foreground">
+          <p className="text-sm leading-relaxed">
             I'm a passionate developer driven by curiosity, creativity, and consistency. I
             specialize in Web2 technologies, and I'm always exploring ways to build smarter, faster,
             and more impactful digital products.
           </p>
-          <p className="text-muted-foreground text-sm mt-5 font-mono">-- Eat. Sleep. Code. Repeat. --</p>
+          <p className="text-muted-foreground text-xs mt-3 font-mono">-- Eat. Sleep. Code. Repeat. --</p>
+          <div className="flex flex-row pt-6">
+            {socialLink.map((link, idx) => (
+              <a
+                key={idx}
+                href={link.url}
+                target="_blank"
+                className="flex items-center justify-center w-8 h-8"
+              >
+                {link.logo}
+              </a>
+            ))}
+          </div>
         </div>
-        <div className="hidden md:flex flex-col w-full md:w-[40%] gap-3 p-5">
-          {socialLink.map((link, idx) => (
-            <a key={idx} href={link.url} target="_blank" className="flex gap-2 text-base font-medium hover:underline">
-              {link.logo}
-              {link.name}
-            </a>
-          ))}
+        <div className="hidden md:flex justify-center items-center p-4 border-t-2 border-dashed border-foreground md:border-t-0 md:border-l-0">
+          <span
+            className="text-2xl tracking-widest text-muted-foreground rotate-180"
+            style={{ writingMode: 'vertical-lr', fontFamily: "'Architects Daughter', cursive" }}
+          >
+            Reet
+          </span>
         </div>
       </div>
 
