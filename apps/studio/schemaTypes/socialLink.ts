@@ -22,8 +22,9 @@ export const socialLink = defineType({
     defineField({
       name: 'logo',
       title: 'Logo',
-      type: 'image',
-      options: {hotspot: true},
+      type: 'string',
+      description: 'Icon identifier (e.g. "github", "linkedin", "x", "codolio", "hashnode")',
+      validation: (rule) => rule.required(),
     }),
     defineField({
       name: 'show',

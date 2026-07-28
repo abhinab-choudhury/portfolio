@@ -1,237 +1,38 @@
-import { Button } from "./components/ui/button";
-import {
-  Blocks,
-  BrainCircuit,
-  ChevronDown,
-  ClapperboardIcon,
-  Gpu,
-  Headphones,
-  ListTodoIcon,
-  Omega,
-  Pickaxe,
-  Projector,
-  QrCode,
-  RefreshCcw,
-  ServerCog,
-  TerminalIcon,
-  Variable,
-  WheatIcon,
-} from 'lucide-react'
-import { Github, Codolio, Hashnode, LinkedIn, X } from '@components/icons'
-import Navbar from "@components/navbar";
-import ProjectCard from "@components/project-card";
-import BlogCard from "@components/blog-card";
-import Footer from "@components/footer";
+import {useQuery} from '@tanstack/react-query'
+import {Button} from './components/ui/button'
+import {Blocks, ChevronDown, Projector} from 'lucide-react'
+import Navbar from '@components/navbar'
+import ProjectCard from '@components/project-card'
+import BlogCard from '@components/blog-card'
+import Footer from '@components/footer'
+import {getProjects, getSocialLinks, getRecentBlogs, type IProject, type ISocialLink, type IRecentBlog} from '@lib/queries'
+import {getIcon} from '@lib/icon-registry'
 
-export interface ISocialLink {
-  name: string
-  url: string
-  logo: React.ReactNode
-}
-
-export interface IProject {
-  project_title: string
-  description: string
-  header_icon: React.ReactNode
-  image_src?: string
-  github_url?: string
-  deployment_url?: string
-  blog_url?: string
-}
-
-export interface IRecentBlog {
-  title: string
-  gist: string
-  link: string
-  create_at: string
+function SkeletonCard({className}: {className?: string}) {
+  return (
+    <div className={`w-full h-full border-2 border-dashed border-foreground p-6 animate-pulse ${className ?? ''}`}>
+      <div className="h-6 bg-muted rounded w-3/4 mb-4" />
+      <div className="h-4 bg-muted rounded w-full mb-2" />
+      <div className="h-4 bg-muted rounded w-5/6" />
+    </div>
+  )
 }
 
 function App() {
-  const projects: IProject[] = [
-    {
-      project_title: 'WorkerQueue',
-      description:
-        'Queue-based task processing system built with Java, enabling efficient background job handling and asynchronous workflows.',
-      header_icon: <RefreshCcw className="w-8 h-8" />,
-      github_url: 'https://github.com/abhinab-choudhury/WorkerQueue',
-      deployment_url: '',
-      blog_url: 'https://deepwiki.com/abhinab-choudhury/WorkerQueue',
-    },
-    {
-      project_title: 'Crop AI',
-      description:
-        'An AI-powered crop disease detection and recommendation system that helps farmers identify and manage crop diseases effectively.',
-      header_icon: <WheatIcon className="w-8 h-8" />,
-      github_url: 'https://github.com/abhinab-choudhury/crop-ai',
-      deployment_url: 'https://crop-ai-one.vercel.app/',
-      blog_url: 'https://deepwiki.com/abhinab-choudhury/Crop-AI',
-    },
-    {
-      project_title: 'CodeXpert',
-      description:
-        'A privacy-focused AI assistant that helps solve coding problems locally using Ollama, fully offline and secure.',
-      header_icon: <BrainCircuit className="w-8 h-8" />,
-      github_url: 'https://github.com/abhinab-choudhury/codexpert',
-      deployment_url: '',
-      blog_url: '',
-    },
-    {
-      project_title: 'ShortWave',
-      description:
-        'A modern URL shortener with a real-time dashboard, QR generation, and link analytics.',
-      header_icon: <QrCode className="w-8 h-8" />,
-      github_url: 'https://github.com/abhinab-choudhury/shortwave',
-      deployment_url: 'https://short-wave.vercel.app/',
-      blog_url: '',
-    },
-    {
-      project_title: 'DeepFx Studio',
-      description:
-        'An AI-powered image editing suite offering enhancements, restorations, and creative transformations.',
-      header_icon: <Gpu className="w-8 h-8" />,
-      github_url: 'http://github.com/xBastille/DeepFX-Studio',
-      deployment_url: '',
-      blog_url: '',
-    },
-    {
-      project_title: 'Manim Video Generation',
-      description: 'Automates high-quality math and concept videos using the Manim Python library.',
-      header_icon: <Omega className="w-8 h-8" />,
-      github_url: 'https://github.com/abhinab-choudhury/manim-video-gen',
-      deployment_url: '',
-      blog_url: '',
-    },
-    {
-      project_title: 'Movie-sovi',
-      description:
-        'Movie-sovi is an AI-powered movie recommendation system that provides personalized film suggestions based on user preferences and viewing history.',
-      header_icon: <ClapperboardIcon className="w-8 h-8" />,
-      github_url: 'https://github.com/abhinab-choudhury/movie-sovi',
-      deployment_url: 'https://movie-sovi.vercel.app/',
-      blog_url: '',
-    },
-    {
-      project_title: 'HTTP Server',
-      description:
-        'A bare-metal web server built in C, demonstrating core network protocol implementation.',
-      header_icon: <ServerCog className="w-8 h-8" />,
-      github_url: 'https://github.com/abhinab-choudhury/Http-Server',
-      deployment_url: '',
-      blog_url: '',
-    },
-    {
-      project_title: 'StackOverflow Web-Crawler',
-      description:
-        'A Go-based crawler that indexes StackOverflow posts and stores metadata in MongoDB with full-text search, with AI Chat.',
-      header_icon: <Pickaxe className="w-8 h-8" />,
-      github_url: 'https://github.com/abhinab-choudhury/stackoverflow-crawler',
-      deployment_url: '',
-      blog_url: '',
-    },
-    {
-      project_title: 'Algorithm-Visualizer',
-      description:
-        'A web-based tool that visually demonstrates the execution of various algorithms, aiding in understanding and learning.',
-      header_icon: <Variable className="w-8 h-8" />,
-      github_url: 'https://github.com/abhinab-choudhury/Algorithm-Visualizer',
-      deployment_url: 'https://algorithm-visualizer-beta.netlify.app/',
-      blog_url: 'https://deepwiki.com/abhinab-choudhury/Algorithm-Visualizer',
-    },
-    {
-      project_title: 'Torrent CLI',
-      description:
-        'Torrent CLI is a command-line tool built in Go for downloading and managing torrent files.',
-      header_icon: <TerminalIcon className="w-8 h-8" />,
-      github_url: 'https://github.com/abhinab-choudhury/torrent-cli',
-      deployment_url: '',
-      blog_url: '',
-    },
-    {
-      project_title: 'Headliner',
-      description:
-        'A News Client with a AI Power News Summarization Chrome Extension, CLI interface and Website also supports Hacker News',
-      header_icon: <Headphones className="w-8 h-8" />,
-      github_url: 'https://github.com/abhinab-choudhury/headliner',
-      deployment_url: 'https://headliner-news-app.vercel.app/',
-      blog_url: '',
-    },
-    {
-      project_title: 'Task Management System',
-      description:
-        'A full-stack task management application with user authentication, real-time updates, and a responsive design, with HTML, CSS and Javascript.',
-      header_icon: <ListTodoIcon className="w-8 h-8" />,
-      github_url: 'https://github.com/abhinab-choudhury/Task-Management-System',
-      deployment_url: 'https://tms-blond.vercel.app/',
-      blog_url: '',
-    },
-  ]
+  const {data: projects = [], isLoading: projectsLoading} = useQuery<IProject[]>({
+    queryKey: ['projects'],
+    queryFn: getProjects,
+  })
 
-  const socialLink: ISocialLink[] = [
-    {
-      name: 'Github',
-      url: 'https://github.com/abhinab-choudhury',
-      logo: <Github className="w-5 h-5" />,
-    },
-    {
-      name: 'Codolio',
-      url: 'https://codolio.com/profile/abhinab-choudhury',
-      logo: <Codolio className="w-5 h-5" />,
-    },
-    {
-      name: 'LinkedIn',
-      url: 'https://www.linkedin.com/in/abhinab-choudhury/',
-      logo: <LinkedIn className="w-5 h-5" />,
-    },
-    {
-      name: 'Twitter',
-      url: 'https://x.com/abhinabc_',
-      logo: <X className="w-5 h-5" />,
-    },
-    {
-      name: 'Hashnode',
-      url: 'https://abhinab-choudhury.hashnode.dev',
-      logo: <Hashnode className="w-5 h-5" />,
-    },
-  ]
+  const {data: socialLinks = [], isLoading: socialLoading} = useQuery<ISocialLink[]>({
+    queryKey: ['socialLinks'],
+    queryFn: getSocialLinks,
+  })
 
-  const recentBlogs: IRecentBlog[] = [
-    {
-      title: 'Building an HTTP Server in C (Linux)',
-      gist: 'A comprehensive guide to building a basic HTTP server in C on Linux, covering socket programming, request handling, and response generation.',
-      link: 'https://abhinab-choudhury.hashnode.dev/building-an-http-server-in-c-linux',
-      create_at: '22nd July, 2025',
-    },
-    {
-      title: 'Session Based Authentication',
-      gist: 'Implementing a Session-Based Authentication using Node and Express.js',
-      link: 'https://abhinab-choudhury.hashnode.dev/implementing-a-session-based-authentication-using-node-and-expressjs',
-      create_at: '1st July, 2025',
-    },
-    {
-      title: 'Authentication',
-      gist: 'How Authentication works? A deep dive into the world of authentication, exploring various methods, protocols, and best practices to secure user identities and data.',
-      link: 'https://abhinab-choudhury.hashnode.dev/how-auth-works',
-      create_at: '3rd July, 2025',
-    },
-    {
-      title: 'Rate Limiting',
-      gist: 'Why Rate Limiting is Crucial in Backend Systems, exploring its importance in preventing abuse, ensuring fair resource usage, and maintaining system stability under high traffic conditions.',
-      link: 'https://abhinab-choudhury.hashnode.dev/why-rate-limiting-is-crucial-in-backend-systems',
-      create_at: '18th June, 2025',
-    },
-    {
-      title: 'Generation APK File for React Native Project',
-      gist: 'A step-by-step guide on how to generate an APK file from a React Native project, covering the necessary configurations and commands.',
-      link: 'https://abhinab-choudhury.hashnode.dev/generate-apk-file-from-react-native-expo-app',
-      create_at: '17th Feb, 2025',
-    },
-    {
-      title: 'Importance of OG Image',
-      gist: 'The Importance of OG (Open Graph) Images in Web Development and Social Media Sharing',
-      link: 'https://abhinab-choudhury.hashnode.dev/open-graph-images',
-      create_at: '31st July, 2025',
-    },
-  ]
+  const {data: recentBlogs = [], isLoading: blogsLoading} = useQuery<IRecentBlog[]>({
+    queryKey: ['recentBlogs'],
+    queryFn: getRecentBlogs,
+  })
 
   return (
     <div className="max-w-4xl mx-auto flex min-h-svh flex-col items-center justify-center p-4 md:p-8">
@@ -245,25 +46,29 @@ function App() {
             and more impactful digital products.
           </p>
           <p className="text-muted-foreground text-xs mt-3 font-mono">-- Eat. Sleep. Code. Repeat. --</p>
-          <div className="flex flex-row pt-6">
-            {socialLink.map((link, idx) => (
-              <a
-                key={idx}
-                href={link.url}
-                target="_blank"
-                className="flex items-center justify-center w-8 h-8"
-              >
-                {link.logo}
-              </a>
-            ))}
+          <div className="flex flex-row pt-6 gap-3">
+            {socialLoading
+              ? Array.from({length: 5}).map((_, i) => (
+                  <div key={i} className="w-8 h-8 border-2 border-dashed border-foreground animate-pulse" />
+                ))
+              : socialLinks.map((link) => (
+                  <a
+                    key={link._id}
+                    href={link.url}
+                    target="_blank"
+                    className="flex items-center justify-center w-10 h-10 bg-white dark:bg-white rounded hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-md transition-all"
+                  >
+                    {getIcon(link.logo)}
+                  </a>
+                ))}
           </div>
         </div>
         <div className="hidden md:flex justify-center items-center p-4 border-t-2 border-dashed border-foreground md:border-t-0 md:border-l-0">
           <span
             className="text-2xl tracking-widest text-muted-foreground rotate-180"
-            style={{ writingMode: 'vertical-lr', fontFamily: "'Architects Daughter', cursive" }}
+            style={{writingMode: 'vertical-lr', fontFamily: "'Architects Daughter', cursive"}}
           >
-            Reet
+            Abhinab
           </span>
         </div>
       </div>
@@ -277,20 +82,24 @@ function App() {
           </h1>
         </div>
         <div className="grid md:grid-cols-2 gap-5 m-8 items-stretch">
-          {projects.map((project, idx) => (
-            <ProjectCard
-              key={idx}
-              image_src={project.image_src}
-              description={project.description}
-              header_icon={project.header_icon}
-              project_title={project.project_title}
-              github_url={project.github_url}
-              deployment_url={project.deployment_url}
-              blog_url={project.blog_url}
-            />
-          ))}
+          {projectsLoading
+            ? Array.from({length: 6}).map((_, i) => <SkeletonCard key={i} />)
+            : projects.map((project) => (
+                <ProjectCard
+                  key={project._id}
+                  description={project.description}
+                  header_icon={getIcon(project.header_icon)}
+                  project_title={project.project_title}
+                  github_url={project.github_url}
+                  deployment_url={project.deployment_url}
+                  blog_url={project.blog_url}
+                />
+              ))}
         </div>
-        <Button variant={'outline'} className="w-fit mx-auto my-10 border-2 border-dashed border-foreground font-bold uppercase tracking-wider hover:shadow-md hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all">
+        <Button
+          variant={'outline'}
+          className="w-fit mx-auto my-10 border-2 border-dashed border-foreground font-bold uppercase tracking-wider hover:shadow-md hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
+        >
           more
           <ChevronDown />
         </Button>
@@ -305,15 +114,17 @@ function App() {
           </h1>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 m-8">
-          {recentBlogs.map((blog) => (
-            <BlogCard
-              key={blog.title}
-              blog_title={blog.title}
-              gist={blog.gist}
-              link={blog.link}
-              create_at={blog.create_at}
-            />
-          ))}
+          {blogsLoading
+            ? Array.from({length: 4}).map((_, i) => <SkeletonCard key={i} />)
+            : recentBlogs.map((blog) => (
+                <BlogCard
+                  key={blog._id}
+                  blog_title={blog.title}
+                  gist={blog.gist}
+                  link={blog.link}
+                  create_at={blog.create_at}
+                />
+              ))}
         </div>
       </div>
 
@@ -323,4 +134,4 @@ function App() {
   )
 }
 
-export default App;
+export default App

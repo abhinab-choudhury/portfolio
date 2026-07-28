@@ -22,8 +22,9 @@ export const project = defineType({
     defineField({
       name: 'header_icon',
       title: 'Header Icon',
-      type: 'image',
-      options: {hotspot: true},
+      type: 'string',
+      description: 'Icon identifier (e.g. "refresh-ccw", "brain-circuit")',
+      validation: (rule) => rule.required(),
     }),
     defineField({
       name: 'image_src',
