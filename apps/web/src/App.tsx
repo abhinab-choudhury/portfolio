@@ -40,7 +40,7 @@ function App() {
 
       <div className="brutalist-card flex flex-col md:flex-row w-full">
         <div className="flex flex-col justify-between p-4 md:border-r-2 md:border-dashed md:border-foreground">
-          <p className="text-sm leading-relaxed">
+          <p className="w-full">
             I'm a passionate developer driven by curiosity, creativity, and consistency. I
             specialize in Web2 technologies, and I'm always exploring ways to build smarter, faster,
             and more impactful digital products.
