@@ -23,7 +23,7 @@ export const project = defineType({
       name: 'header_icon',
       title: 'Header Icon',
       type: 'string',
-      description: 'Icon identifier (e.g. "refresh-ccw", "brain-circuit")',
+      description: 'Lucide icon name in kebab-case (e.g. "brain-circuit", "qr-code")',
       validation: (rule) => rule.required(),
     }),
     defineField({

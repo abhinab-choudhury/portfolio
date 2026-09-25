@@ -23,7 +23,8 @@ export const socialLink = defineType({
       name: 'logo',
       title: 'Logo',
       type: 'string',
-      description: 'Icon identifier (e.g. "github", "linkedin", "x", "codolio", "hashnode")',
+      description:
+        'Custom brand identifier or Lucide icon name in kebab-case (e.g. "github", "linkedin", "brain-circuit")',
       validation: (rule) => rule.required(),
     }),
     defineField({
