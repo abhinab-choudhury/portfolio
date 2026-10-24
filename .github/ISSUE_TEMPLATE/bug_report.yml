@@ -1,0 +1,49 @@
+name: 🐛 Bug report
+description: Something isn't working
+title: "[Bug]: "
+labels: ["bug", "needs-triage"]
+
+body:
+  - type: markdown
+    attributes:
+      value: "Thanks for reporting! Fill in what you can—more detail = faster fix."
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: Brief description of the bug
+      placeholder: "When I click X, Y happens instead of Z."
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Go to '...'
+        2. Click '...'
+        3. See error
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: What should happen instead?
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Version / commit
+      placeholder: "v1.2.0 or a1b2c3d"
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs / stack trace (optional)
+      render: shell
