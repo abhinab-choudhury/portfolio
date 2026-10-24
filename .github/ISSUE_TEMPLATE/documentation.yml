@@ -1,0 +1,27 @@
+name: 📚 Documentation issue
+description: Docs are missing, unclear or wrong
+title: "[Docs]: "
+labels: ["documentation", "good first issue"]
+
+body:
+  - type: input
+    id: location
+    attributes:
+      label: Where is the problem?
+      description: Link to page or file path (e.g. README.md)
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What's wrong or missing?
+      description: Describe the confusion, error, or gap
+    validations:
+      required: true
+
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: Suggested fix (optional)
+      description: If you know the right wording, include it for a quick PR
