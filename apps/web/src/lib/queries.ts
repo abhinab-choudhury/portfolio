@@ -26,6 +26,19 @@ export interface IRecentBlog {
   create_at: string
 }
 
+export interface IOpenSource {
+  _id: string
+  org_name?: string
+  project_name: string
+  org_url?: string
+  repo_url?: string
+  pr_title: string
+  description?: string
+  pr_url: string
+  status: 'merged' | 'open' | 'in_progress' | 'closed'
+  show: boolean
+}
+
 export async function getProjects(): Promise<IProject[]> {
   return sanityClient.fetch(
     `*[_type == "project" && show == true] | order(_createdAt desc) {
@@ -60,6 +73,22 @@ export async function getRecentBlogs(): Promise<IRecentBlog[]> {
       gist,
       link,
       create_at
+    }`
+  )
+}
+
+export async function getOpenSourceContributions(): Promise<IOpenSource[]> {
+  return sanityClient.fetch(
+    `*[_type == "openSource" && show == true] | order(_createdAt desc) {
+      _id,
+      org_name,
+      project_name,
+      org_url,
+      repo_url,
+      pr_title,
+      description,
+      pr_url,
+      status
     }`
   )
 }
