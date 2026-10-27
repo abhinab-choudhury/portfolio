@@ -40,18 +40,6 @@ function App() {
     queryFn: getOpenSourceContributions,
   })
 
-  const groupedOpenSource = useMemo(
-    () =>
-      openSourceContributions.reduce((acc, contribution) => {
-        if (!acc[contribution.project_name]) {
-          acc[contribution.project_name] = []
-        }
-        acc[contribution.project_name].push(contribution)
-        return acc
-      }, {} as Record<string, typeof openSourceContributions>),
-    [openSourceContributions],
-  )
-
   const orgGroups = useMemo(() => {
     const groups: Record<string, Record<string, typeof openSourceContributions>> = {}
     for (const contribution of openSourceContributions) {
