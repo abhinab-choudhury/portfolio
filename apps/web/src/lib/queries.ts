@@ -37,11 +37,13 @@ export interface IOpenSource {
   pr_url: string
   status: 'merged' | 'open' | 'in_progress' | 'closed'
   show: boolean
+  pinned?: boolean
+  mergedAt?: string
 }
 
 export async function getProjects(): Promise<IProject[]> {
   return sanityClient.fetch(
-    `*[_type == "project" && show == true] | order(_createdAt desc) {
+    `*[_type == "project" && show == true] | order(defined(order) desc, order asc, _createdAt desc) {
       _id,
       project_title,
       description,
@@ -50,7 +52,7 @@ export async function getProjects(): Promise<IProject[]> {
       github_url,
       deployment_url,
       blog_url
-    }`
+    }`,
   )
 }
 
@@ -61,7 +63,7 @@ export async function getSocialLinks(): Promise<ISocialLink[]> {
       name,
       url,
       logo
-    }`
+    }`,
   )
 }
 
@@ -73,13 +75,16 @@ export async function getRecentBlogs(): Promise<IRecentBlog[]> {
       gist,
       link,
       create_at
-    }`
+    }`,
   )
 }
 
 export async function getOpenSourceContributions(): Promise<IOpenSource[]> {
   return sanityClient.fetch(
-    `*[_type == "openSource" && show == true] | order(_createdAt desc) {
+    `*[_type == "openSource" && show == true && visibility != "hide" &&
+      (!defined(githubId) || githubAvailable == true) &&
+      (visibility == "show" || !defined(githubId) || githubEligible == true)]
+      | order(coalesce(pinned, false) desc, coalesce(mergedAt, _createdAt) desc) {
       _id,
       org_name,
       project_name,
@@ -88,7 +93,29 @@ export async function getOpenSourceContributions(): Promise<IOpenSource[]> {
       pr_title,
       description,
       pr_url,
+      pinned,
+      mergedAt,
+      show,
       status
-    }`
+    }`,
+  )
+}
+
+export interface IExperience {
+  _id: string
+  role: string
+  company: string
+  companyUrl?: string
+  location?: string
+  startDate: string
+  endDate?: string
+  description?: string
+}
+
+export async function getExperience(): Promise<IExperience[]> {
+  return sanityClient.fetch(
+    `*[_type == "experience" && show == true] | order(startDate desc, _createdAt desc) {
+      _id, role, company, companyUrl, location, startDate, endDate, description
+    }`,
   )
 }

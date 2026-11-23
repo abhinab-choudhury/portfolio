@@ -3,4 +3,6 @@ import {project} from './project'
 import {recentBlog} from './recentBlog'
 import {openSource} from './openSource'
 
-export const schemaTypes = [socialLink, project, recentBlog, openSource]
+import {experience} from './experience'
+
+export const schemaTypes = [socialLink, project, recentBlog, openSource, experience]

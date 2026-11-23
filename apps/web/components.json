@@ -14,5 +14,8 @@
     "utils": "src/lib/utils",
     "ui": "src/components/ui",
     "lib": "src/lib"
+  },
+  "registries": {
+    "@aceternity": "https://ui.aceternity.com/registry/{name}.json"
   }
 }

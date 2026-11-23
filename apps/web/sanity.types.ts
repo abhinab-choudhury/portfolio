@@ -15,6 +15,117 @@
 export declare const internalGroqTypeReferenceTo: unique symbol;
 
 // Source: schema.json
+export type Experience = {
+  _id: string;
+  _type: "experience";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  role?: string;
+  company?: string;
+  companyUrl?: string;
+  location?: string;
+  startDate?: string;
+  endDate?: string;
+  description?: string;
+  show?: boolean;
+};
+
+export type OpenSource = {
+  _id: string;
+  _type: "openSource";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  githubAvailable?: boolean;
+  githubId?: string;
+  githubTitle?: string;
+  githubEligible?: boolean;
+  mergedAt?: string;
+  visibility?: "auto" | "show" | "hide";
+  pinned?: boolean;
+  org_name?: string;
+  project_name?: string;
+  org_url?: string;
+  repo_url?: string;
+  pr_title?: string;
+  description?: string;
+  pr_url?: string;
+  status?: "merged" | "open" | "in_progress" | "closed";
+  show?: boolean;
+};
+
+export type RecentBlog = {
+  _id: string;
+  _type: "recentBlog";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  gist?: string;
+  link?: string;
+  create_at?: string;
+  show?: boolean;
+};
+
+export type SanityImageAssetReference = {
+  _ref: string;
+  _type: "reference";
+  _weak?: boolean;
+  [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+};
+
+export type Project = {
+  _id: string;
+  _type: "project";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  order?: number;
+  project_title?: string;
+  description?: string;
+  header_icon?: string;
+  image_src?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  github_url?: string;
+  deployment_url?: string;
+  blog_url?: string;
+  show?: boolean;
+};
+
+export type SanityImageCrop = {
+  _type: "sanity.imageCrop";
+  top?: number;
+  bottom?: number;
+  left?: number;
+  right?: number;
+};
+
+export type SanityImageHotspot = {
+  _type: "sanity.imageHotspot";
+  x?: number;
+  y?: number;
+  height?: number;
+  width?: number;
+};
+
+export type SocialLink = {
+  _id: string;
+  _type: "socialLink";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  url?: string;
+  logo?: string;
+  show?: boolean;
+};
+
 export type SanityImagePaletteSwatch = {
   _type: "sanity.imagePaletteSwatch";
   background?: string;
@@ -51,22 +162,6 @@ export type SanityImageMetadata = {
   thumbHash?: string;
   hasAlpha?: boolean;
   isOpaque?: boolean;
-};
-
-export type SanityImageHotspot = {
-  _type: "sanity.imageHotspot";
-  x?: number;
-  y?: number;
-  height?: number;
-  width?: number;
-};
-
-export type SanityImageCrop = {
-  _type: "sanity.imageCrop";
-  top?: number;
-  bottom?: number;
-  left?: number;
-  right?: number;
 };
 
 export type SanityFileAsset = {
@@ -135,12 +230,18 @@ export type Slug = {
 };
 
 export type AllSanitySchemaTypes =
+  | Experience
+  | OpenSource
+  | RecentBlog
+  | SanityImageAssetReference
+  | Project
+  | SanityImageCrop
+  | SanityImageHotspot
+  | SocialLink
   | SanityImagePaletteSwatch
   | SanityImagePalette
   | SanityImageDimensions
   | SanityImageMetadata
-  | SanityImageHotspot
-  | SanityImageCrop
   | SanityFileAsset
   | SanityAssetSourceData
   | SanityImageAsset

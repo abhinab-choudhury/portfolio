@@ -6,7 +6,17 @@ export const project = defineType({
   title: 'Project',
   type: 'document',
   icon: DocumentIcon,
+  orderings: [
+    {title: 'Project order', name: 'projectOrder', by: [{field: 'order', direction: 'asc'}, {field: '_createdAt', direction: 'desc'}]},
+  ],
   fields: [
+    defineField({
+      name: 'order',
+      title: 'Project order',
+      type: 'number',
+      description: 'Lower numbers appear first (1, 2, 3…). Leave empty to show after ordered projects. Ties show newest first.',
+      validation: (rule) => rule.integer().min(1),
+    }),
     defineField({
       name: 'project_title',
       title: 'Project Title',

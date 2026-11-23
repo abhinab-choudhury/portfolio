@@ -317,3 +317,13 @@
   box-shadow: var(--shadow-lg);
   transform: translate(-2px, -2px);
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .brutalist-card {
+    transition: none;
+  }
+
+  .brutalist-card:hover {
+    transform: none;
+  }
+}

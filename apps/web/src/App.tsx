@@ -1,8 +1,8 @@
 import {useQuery} from '@tanstack/react-query'
-import {Button} from './components/ui/button'
-import {Blocks, ChevronDown, Projector, GitMerge} from 'lucide-react'
+import {Blocks, Projector, GitMerge} from 'lucide-react'
 import Navbar from '@components/navbar'
-import ProjectCard from '@components/project-card'
+import ExperienceSection from '@components/experience-section'
+import ProjectsBento from '@components/projects-bento'
 import BlogCard from '@components/blog-card'
 import Footer from '@components/footer'
 import {getProjects, getSocialLinks, getRecentBlogs, getOpenSourceContributions, type IProject, type ISocialLink, type IRecentBlog, type IOpenSource} from '@lib/queries'
@@ -38,6 +38,7 @@ function App() {
   const {data: openSourceContributions = [], isLoading: openSourceLoading} = useQuery<IOpenSource[]>({
     queryKey: ['openSource'],
     queryFn: getOpenSourceContributions,
+    refetchInterval: 60_000,
   })
 
   const orgGroups = useMemo(() => {
@@ -106,23 +107,24 @@ function App() {
 
       {/* Open Source Section */}
       {openSourceContributions.length > 0 && (
-        <div className="flex flex-col w-full mt-10">
-          <div className="text-left pt-10 pb-5 border-y-2 border-dashed border-foreground flex justify-between">
-            <h1 className="flex gap-3 items-center mt-auto mx-5 scroll-m-20 text-4xl font-extrabold tracking-tight w-full">
-              <GitMerge className="w-8 h-8" />
+        <section aria-labelledby="open-source-heading" className="w-full mt-10">
+          <div className="border-y-2 border-dashed border-foreground pb-5 pt-10">
+            <h2 id="open-source-heading" className="mx-5 flex items-center gap-3 text-4xl font-extrabold tracking-tight">
+              <GitMerge className="size-8 shrink-0" aria-hidden="true" />
               Open Source
-            </h1>
+            </h2>
           </div>
-          <div className="m-6 md:m-8">
-            <div className="flex gap-2 overflow-x-auto pb-2 border-b-2 border-dashed border-foreground mb-4">
+          <div className="mx-4 my-8 md:mx-8">
+            <div aria-label="Filter contributions by organization" className="mb-6 flex gap-2 overflow-x-auto pb-2">
               {orgNames.map((orgName) => (
                 <button
                   key={orgName}
                   onClick={() => setSelectedOrg(orgName)}
-                  className={`px-3 py-1.5 text-xs font-mono font-semibold border-2 border-dashed whitespace-nowrap transition-all flex-shrink-0 ${
+                  aria-pressed={selectedOrg === orgName}
+                  className={`border-2 border-dashed border-foreground px-3 py-1.5 font-mono text-xs font-bold whitespace-nowrap transition-colors flex-shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring ${
                     selectedOrg === orgName
-                      ? 'border-foreground bg-foreground text-background'
-                      : 'border-foreground hover:bg-muted/50'
+                      ? 'bg-foreground text-background'
+                      : 'bg-background text-foreground hover:bg-muted'
                   }`}
                 >
                   {orgName}
@@ -130,46 +132,47 @@ function App() {
               ))}
             </div>
             {selectedOrg && orgGroups[selectedOrg] && (
-              <div className="flex flex-col gap-3">
+              <div className="flex flex-col gap-6">
                 {openSourceLoading ? (
-                  <div className="px-3 py-2 text-xs text-muted-foreground border border-dashed border-foreground">Loading...</div>
+                  <div className="py-2 text-xs text-muted-foreground">Loading...</div>
                 ) : (
                   Object.entries(orgGroups[selectedOrg]).map(([projectName, contributions]) => (
-                    <div key={projectName} className="border border-dashed border-foreground">
-                      <div className="border-b border-dashed border-foreground px-3 py-1.5 bg-foreground/5 flex items-center justify-between">
+                    <div key={projectName} className="brutalist-card min-w-0 bg-background">
+                      <div className="flex items-center justify-between gap-3 border-b border-dashed border-foreground/40 px-4 py-4 md:px-6">
                         <a
                           href={contributions[0]?.repo_url || (contributions[0]?.project_name.includes('/') ? `https://github.com/${contributions[0]?.project_name}` : `https://github.com/${selectedOrg}/${contributions[0]?.project_name}`)}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="font-bold text-xs font-mono hover:underline"
+                          className="min-w-0 break-words font-mono text-sm font-bold hover:underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
                         >
                           {contributions[0]?.project_name || projectName}
                         </a>
-                        <span className="text-[10px] text-muted-foreground font-mono">{contributions.length} {contributions.length === 1 ? 'PR' : 'PRs'}</span>
+                        <span className="shrink-0 font-mono text-xs text-muted-foreground">{contributions.length} {contributions.length === 1 ? 'PR' : 'PRs'}</span>
                       </div>
-                      <div className="divide-y divide-dashed divide-foreground/60">
+                      <div className="mx-4 divide-y divide-dashed divide-foreground/25 md:mx-6">
                         {contributions.map((contribution) => (
-                          <div key={contribution._id} className="flex items-center justify-between gap-2 px-3 py-1.5 hover:bg-muted/10 transition-colors">
+                          <div key={contribution._id} className="flex items-start justify-between gap-4 py-4 transition-colors hover:bg-foreground/[0.025]">
                             <a
                               href={contribution.pr_url}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="text-xs hover:underline underline-offset-2 truncate flex-1 min-w-0"
+                              className="min-w-0 flex-1 break-words font-mono text-xs leading-relaxed text-foreground hover:text-foreground hover:underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
                             >
+                              {contribution.pinned && <span className="mr-2 text-muted-foreground">Featured ·</span>}
                               {contribution.pr_title}
                             </a>
                             <span
-                              className={`text-[10px] px-1.5 py-0.5 border font-mono flex-shrink-0 ${
+                              className={`mt-0.5 border border-dashed border-current px-1.5 py-0.5 font-mono text-[10px] font-medium flex-shrink-0 ${
                                 contribution.status === 'merged'
-                                  ? 'border-purple-400 text-purple-700 dark:text-purple-400'
+                                  ? 'text-purple-700 dark:text-purple-400'
                                   : contribution.status === 'open'
-                                    ? 'border-green-400 text-green-700 dark:text-green-400'
+                                    ? 'text-green-700 dark:text-green-400'
                                     : contribution.status === 'in_progress'
-                                      ? 'border-yellow-400 text-yellow-700 dark:text-yellow-400'
-                                      : 'border-red-400 text-red-700 dark:text-red-400'
+                                      ? 'text-amber-700 dark:text-amber-400'
+                                      : 'text-red-700 dark:text-red-400'
                               }`}
                             >
-                              {contribution.status === 'in_progress' ? 'WIP' : contribution.status.toUpperCase()}
+                              {contribution.status === 'in_progress' ? 'WIP' : contribution.status === 'merged' ? 'Merged' : contribution.status === 'open' ? 'Open' : 'Closed'}
                             </span>
                           </div>
                         ))}
@@ -180,8 +183,10 @@ function App() {
               </div>
             )}
           </div>
-        </div>
+        </section>
       )}
+
+      <ExperienceSection />
 
       {/* Project Section */}
       <div className="flex flex-col w-full">
@@ -191,28 +196,7 @@ function App() {
             Projects
           </h1>
         </div>
-        <div className="grid md:grid-cols-2 gap-5 m-8 items-stretch">
-          {projectsLoading
-            ? Array.from({length: 6}).map((_, i) => <SkeletonCard key={i} />)
-            : projects.map((project) => (
-                <ProjectCard
-                  key={project._id}
-                  description={project.description}
-                  header_icon={getIcon(project.header_icon)}
-                  project_title={project.project_title}
-                  github_url={project.github_url}
-                  deployment_url={project.deployment_url}
-                  blog_url={project.blog_url}
-                />
-              ))}
-        </div>
-        <Button
-          variant={'outline'}
-          className="w-fit mx-auto my-10 border-2 border-dashed border-foreground font-bold uppercase tracking-wider hover:shadow-md hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
-        >
-          more
-          <ChevronDown />
-        </Button>
+        <ProjectsBento projects={projects} isLoading={projectsLoading} />
       </div>
 
       {/* Open Source moved to tabs */}

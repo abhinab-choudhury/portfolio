@@ -6,6 +6,42 @@ export const openSource = defineType({
   type: 'document',
   fields: [
     defineField({
+      name: 'githubAvailable',
+      title: 'Publicly available on GitHub',
+      type: 'boolean',
+      readOnly: true,
+    }),
+    defineField({name: 'githubId', title: 'GitHub ID', type: 'string', readOnly: true}),
+    defineField({
+      name: 'githubTitle',
+      title: 'Latest GitHub title',
+      type: 'string',
+      readOnly: true,
+    }),
+    defineField({
+      name: 'githubEligible',
+      title: 'Matches automatic display rules',
+      type: 'boolean',
+      readOnly: true,
+    }),
+    defineField({name: 'mergedAt', title: 'Merged at', type: 'datetime', readOnly: true}),
+    defineField({
+      name: 'visibility',
+      title: 'Visibility override',
+      type: 'string',
+      description:
+        'Automatic shows merged PRs to public repositories you do not own. Show still needs to be enabled below.',
+      options: {
+        list: [
+          {title: 'Automatic', value: 'auto'},
+          {title: 'Always show', value: 'show'},
+          {title: 'Always hide', value: 'hide'},
+        ],
+      },
+      initialValue: 'auto',
+    }),
+    defineField({name: 'pinned', title: 'Pin to top', type: 'boolean', initialValue: false}),
+    defineField({
       name: 'org_name',
       title: 'Organization Name',
       type: 'string',
