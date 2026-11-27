@@ -28,5 +28,7 @@ ssh -p 23234 localhost
 
 ## Documentation
 
+- [Step-by-step tutorial](docs/TUTORIAL.md): build your first working SSH portfolio and deploy it.
+
 - [Architecture](docs/ARCHITECTURE.md): responsibilities, session model, and content flow.
 - [Setup and deployment](docs/SETUP.md): configuration, VPS hosting, releases, and recovery.

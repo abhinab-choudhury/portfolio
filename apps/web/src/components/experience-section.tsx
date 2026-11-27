@@ -1,3 +1,4 @@
+import {useState} from 'react'
 import {useQuery} from '@tanstack/react-query'
 import {ArrowUpRight, BriefcaseBusiness} from 'lucide-react'
 import {getExperience} from '@lib/queries'
@@ -7,6 +8,13 @@ const dateFormat = new Intl.DateTimeFormat('en', {month: 'short', year: 'numeric
 function formatDate(value: string) {
   const date = new Date(value)
   return Number.isNaN(date.getTime()) ? value : dateFormat.format(date)
+}
+
+function CompanyLogo({url, company}: {url?: string; company: string}) {
+  const [failed, setFailed] = useState(false)
+  return <span className="absolute left-0 top-0 flex size-9 items-center justify-center border border-dashed border-border bg-card font-mono text-xs font-bold" aria-hidden="true">
+    {url && !failed ? <img src={url} alt="" className="size-7 object-contain" loading="lazy" onError={() => setFailed(true)} /> : company.split(/\s+/).slice(0, 2).map(word => word[0]).join('').toUpperCase()}
+  </span>
 }
 
 export default function ExperienceSection() {
@@ -19,25 +27,25 @@ export default function ExperienceSection() {
 
   return (
     <section aria-labelledby="experience-heading" className="w-full">
-      <div className="border-y-2 border-dashed border-foreground pb-5 pt-10">
-        <h2 id="experience-heading" className="mx-5 flex items-center gap-3 text-4xl font-extrabold tracking-tight">
-          <BriefcaseBusiness className="size-8 shrink-0" aria-hidden="true" />
+      <div className="section-heading">
+        <h2 id="experience-heading" className="flex items-center gap-2 text-xl font-extrabold tracking-tight">
+          <BriefcaseBusiness className="size-5 shrink-0" aria-hidden="true" />
           Experience
         </h2>
       </div>
       {isPending ? (
-        <div className="mx-4 my-8 space-y-4 md:mx-8" role="status">
+        <div className="my-4 space-y-3" role="status">
           <span className="sr-only">Loading experience…</span>
           <div className="h-5 w-1/2 bg-muted motion-safe:animate-pulse" />
           <div className="h-4 w-1/3 bg-muted motion-safe:animate-pulse" />
         </div>
       ) : (
-        <ol className="mx-4 my-8 border-l border-dashed border-foreground/30 md:mx-8">
+        <ol className="my-4 space-y-4">
           {experience.map(entry => (
-            <li key={entry._id} className="relative pb-8 pl-6 last:pb-0">
-              <span aria-hidden="true" className="absolute -left-[4.5px] top-2 size-2 rounded-full bg-primary ring-4 ring-background" />
+            <li key={entry._id} className="relative pl-12">
+              <CompanyLogo key={entry.companyLogoUrl} url={entry.companyLogoUrl} company={entry.company} />
               <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
-                <h3 className="min-w-0 break-words text-lg font-semibold tracking-tight">{entry.role}</h3>
+                <h3 className="min-w-0 break-words text-base font-semibold tracking-tight">{entry.role}</h3>
                 <span className="shrink-0 font-mono text-xs text-muted-foreground">
                   <time dateTime={entry.startDate}>{formatDate(entry.startDate)}</time>
                   {' — '}
@@ -52,7 +60,7 @@ export default function ExperienceSection() {
                 ) : <span>{entry.company}</span>}
                 {entry.location && <span className="text-xs text-muted-foreground">{entry.location}</span>}
               </div>
-              {entry.description && <p className="mt-3 max-w-prose whitespace-pre-line break-words leading-relaxed text-muted-foreground">{entry.description}</p>}
+              {entry.description && <p className="mt-2 max-w-prose whitespace-pre-line break-words leading-relaxed text-muted-foreground">{entry.description}</p>}
             </li>
           ))}
         </ol>

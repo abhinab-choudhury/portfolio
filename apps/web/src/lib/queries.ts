@@ -2,6 +2,8 @@ import {sanityClient} from './sanity'
 
 export interface IProject {
   _id: string
+  slug?: string
+  details?: string
   project_title: string
   description: string
   header_icon: string
@@ -46,6 +48,7 @@ export async function getProjects(): Promise<IProject[]> {
     `*[_type == "project" && show == true] | order(defined(order) desc, order asc, _createdAt desc) {
       _id,
       project_title,
+      "slug": slug.current,
       description,
       header_icon,
       image_src,
@@ -105,6 +108,7 @@ export interface IExperience {
   _id: string
   role: string
   company: string
+  companyLogoUrl?: string
   companyUrl?: string
   location?: string
   startDate: string
@@ -115,7 +119,19 @@ export interface IExperience {
 export async function getExperience(): Promise<IExperience[]> {
   return sanityClient.fetch(
     `*[_type == "experience" && show == true] | order(startDate desc, _createdAt desc) {
-      _id, role, company, companyUrl, location, startDate, endDate, description
+      _id, role, company, companyUrl, location, startDate, endDate, description,
+      "companyLogoUrl": companyLogo.asset->url
     }`,
+  )
+}
+
+export async function getProject(path: string): Promise<IProject | null> {
+  const legacyId = path.includes('--') ? path.slice(path.lastIndexOf('--') + 2) : path
+  return sanityClient.fetch(
+    `*[_type == "project" && show == true && (slug.current == $path || _id == $legacyId)][0] {
+      _id, project_title, description, header_icon, github_url, deployment_url, blog_url,
+      "slug": slug.current, details
+    }`,
+    {path, legacyId},
   )
 }

@@ -15,12 +15,26 @@
 export declare const internalGroqTypeReferenceTo: unique symbol;
 
 // Source: schema.json
+export type SanityImageAssetReference = {
+  _ref: string;
+  _type: "reference";
+  _weak?: boolean;
+  [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+};
+
 export type Experience = {
   _id: string;
   _type: "experience";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
+  companyLogo?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
   role?: string;
   company?: string;
   companyUrl?: string;
@@ -29,6 +43,22 @@ export type Experience = {
   endDate?: string;
   description?: string;
   show?: boolean;
+};
+
+export type SanityImageCrop = {
+  _type: "sanity.imageCrop";
+  top?: number;
+  bottom?: number;
+  left?: number;
+  right?: number;
+};
+
+export type SanityImageHotspot = {
+  _type: "sanity.imageHotspot";
+  x?: number;
+  y?: number;
+  height?: number;
+  width?: number;
 };
 
 export type OpenSource = {
@@ -68,19 +98,14 @@ export type RecentBlog = {
   show?: boolean;
 };
 
-export type SanityImageAssetReference = {
-  _ref: string;
-  _type: "reference";
-  _weak?: boolean;
-  [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-};
-
 export type Project = {
   _id: string;
   _type: "project";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
+  slug?: Slug;
+  details?: string;
   order?: number;
   project_title?: string;
   description?: string;
@@ -98,20 +123,10 @@ export type Project = {
   show?: boolean;
 };
 
-export type SanityImageCrop = {
-  _type: "sanity.imageCrop";
-  top?: number;
-  bottom?: number;
-  left?: number;
-  right?: number;
-};
-
-export type SanityImageHotspot = {
-  _type: "sanity.imageHotspot";
-  x?: number;
-  y?: number;
-  height?: number;
-  width?: number;
+export type Slug = {
+  _type: "slug";
+  current?: string;
+  source?: string;
 };
 
 export type SocialLink = {
@@ -223,20 +238,15 @@ export type Geopoint = {
   alt?: number;
 };
 
-export type Slug = {
-  _type: "slug";
-  current?: string;
-  source?: string;
-};
-
 export type AllSanitySchemaTypes =
-  | Experience
-  | OpenSource
-  | RecentBlog
   | SanityImageAssetReference
-  | Project
+  | Experience
   | SanityImageCrop
   | SanityImageHotspot
+  | OpenSource
+  | RecentBlog
+  | Project
+  | Slug
   | SocialLink
   | SanityImagePaletteSwatch
   | SanityImagePalette
@@ -245,5 +255,4 @@ export type AllSanitySchemaTypes =
   | SanityFileAsset
   | SanityAssetSourceData
   | SanityImageAsset
-  | Geopoint
-  | Slug;
+  | Geopoint;

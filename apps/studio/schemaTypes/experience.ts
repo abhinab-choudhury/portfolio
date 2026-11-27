@@ -7,6 +7,7 @@ export const experience = defineType({
   type: 'document',
   icon: DocumentIcon,
   fields: [
+    defineField({name: 'companyLogo', title: 'Company logo', type: 'image', description: 'Upload the company logo. It is shown beside your role; company initials are used when empty.'}),
     defineField({name: 'role', title: 'Role', type: 'string', validation: rule => rule.required()}),
     defineField({name: 'company', title: 'Company', type: 'string', validation: rule => rule.required()}),
     defineField({name: 'companyUrl', title: 'Company website', type: 'url', validation: rule => rule.uri({scheme: ['http', 'https']})}),

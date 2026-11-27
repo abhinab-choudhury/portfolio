@@ -11,7 +11,7 @@ import {useEffect, useMemo, useState} from 'react'
 
 function SkeletonCard({className}: {className?: string}) {
   return (
-    <div className={`w-full h-full border-2 border-dashed border-foreground p-6 animate-pulse ${className ?? ''}`}>
+    <div className={`w-full h-full border border-dashed border-border p-4 animate-pulse ${className ?? ''}`}>
       <div className="h-6 bg-muted rounded w-3/4 mb-4" />
       <div className="h-4 bg-muted rounded w-full mb-2" />
       <div className="h-4 bg-muted rounded w-5/6" />
@@ -66,22 +66,26 @@ function App() {
     }
   }, [orgNames, selectedOrg])
 
+  useEffect(() => {document.title = "Abhinab Choudhury · Developer"}, [])
+
   return (
-    <div className="max-w-4xl mx-auto flex min-h-svh flex-col items-center justify-center p-4 md:p-8">
+    <div className="page-shell">
       <Navbar />
+      <main tabIndex={-1} className="w-full outline-none">
+      <h1 className="sr-only">Abhinab Choudhury — Developer portfolio</h1>
 
       <div className="brutalist-card flex flex-col md:flex-row w-full">
-        <div className="flex flex-col justify-between p-4 md:border-r-2 md:border-dashed md:border-foreground">
+        <div className="flex flex-col justify-between p-4 md:border-r md:border-dashed md:border-border">
           <p className="w-full">
             I'm a passionate developer driven by curiosity, creativity, and consistency. I
             specialize in Web2 technologies, and I'm always exploring ways to build smarter, faster,
             and more impactful digital products.
           </p>
           <p className="text-muted-foreground text-xs mt-3 font-mono">-- Eat. Sleep. Code. Repeat. --</p>
-          <div className="flex flex-row pt-6 gap-3">
+          <div className="flex flex-row pt-3 gap-2">
             {socialLoading
               ? Array.from({length: 5}).map((_, i) => (
-                  <div key={i} className="w-8 h-8 border-2 border-dashed border-foreground animate-pulse" />
+                  <div key={i} className="w-8 h-8 border border-dashed border-border animate-pulse" />
                 ))
               : socialLinks.map((link) => (
                   <a
@@ -95,7 +99,7 @@ function App() {
                 ))}
           </div>
         </div>
-        <div className="hidden md:flex justify-center items-center p-4 border-t-2 border-dashed border-foreground md:border-t-0 md:border-l-0">
+        <div className="hidden md:flex justify-center items-center p-4 border-t border-dashed border-border md:border-t-0 md:border-l-0">
           <span
             className="text-2xl tracking-widest text-muted-foreground rotate-180"
             style={{writingMode: 'vertical-lr', fontFamily: "'Architects Daughter', cursive"}}
@@ -107,21 +111,21 @@ function App() {
 
       {/* Open Source Section */}
       {openSourceContributions.length > 0 && (
-        <section aria-labelledby="open-source-heading" className="w-full mt-10">
-          <div className="border-y-2 border-dashed border-foreground pb-5 pt-10">
-            <h2 id="open-source-heading" className="mx-5 flex items-center gap-3 text-4xl font-extrabold tracking-tight">
-              <GitMerge className="size-8 shrink-0" aria-hidden="true" />
+        <section aria-labelledby="open-source-heading" className="w-full mt-6">
+          <div className="section-heading">
+            <h2 id="open-source-heading" className="flex items-center gap-2 text-xl font-extrabold tracking-tight">
+              <GitMerge className="size-5 shrink-0" aria-hidden="true" />
               Open Source
             </h2>
           </div>
-          <div className="mx-4 my-8 md:mx-8">
-            <div aria-label="Filter contributions by organization" className="mb-6 flex gap-2 overflow-x-auto pb-2">
+          <div className="my-4">
+            <div aria-label="Filter contributions by organization" className="mb-3 flex gap-2 overflow-x-auto pb-2">
               {orgNames.map((orgName) => (
                 <button
                   key={orgName}
                   onClick={() => setSelectedOrg(orgName)}
                   aria-pressed={selectedOrg === orgName}
-                  className={`border-2 border-dashed border-foreground px-3 py-1.5 font-mono text-xs font-bold whitespace-nowrap transition-colors flex-shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring ${
+                  className={`border border-dashed border-border px-3 py-1.5 font-mono text-xs font-bold whitespace-nowrap transition-colors flex-shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring ${
                     selectedOrg === orgName
                       ? 'bg-foreground text-background'
                       : 'bg-background text-foreground hover:bg-muted'
@@ -132,13 +136,13 @@ function App() {
               ))}
             </div>
             {selectedOrg && orgGroups[selectedOrg] && (
-              <div className="flex flex-col gap-6">
+              <div className="flex flex-col gap-3">
                 {openSourceLoading ? (
                   <div className="py-2 text-xs text-muted-foreground">Loading...</div>
                 ) : (
                   Object.entries(orgGroups[selectedOrg]).map(([projectName, contributions]) => (
                     <div key={projectName} className="brutalist-card min-w-0 bg-background">
-                      <div className="flex items-center justify-between gap-3 border-b border-dashed border-foreground/40 px-4 py-4 md:px-6">
+                      <div className="flex items-center justify-between gap-3 border-b border-dashed border-border px-3 py-2.5">
                         <a
                           href={contributions[0]?.repo_url || (contributions[0]?.project_name.includes('/') ? `https://github.com/${contributions[0]?.project_name}` : `https://github.com/${selectedOrg}/${contributions[0]?.project_name}`)}
                           target="_blank"
@@ -149,9 +153,9 @@ function App() {
                         </a>
                         <span className="shrink-0 font-mono text-xs text-muted-foreground">{contributions.length} {contributions.length === 1 ? 'PR' : 'PRs'}</span>
                       </div>
-                      <div className="mx-4 divide-y divide-dashed divide-foreground/25 md:mx-6">
+                      <div className="mx-3 divide-y divide-dashed divide-border">
                         {contributions.map((contribution) => (
-                          <div key={contribution._id} className="flex items-start justify-between gap-4 py-4 transition-colors hover:bg-foreground/[0.025]">
+                          <div key={contribution._id} className="flex items-start justify-between gap-3 py-2.5 transition-colors hover:bg-foreground/[0.025]">
                             <a
                               href={contribution.pr_url}
                               target="_blank"
@@ -190,11 +194,11 @@ function App() {
 
       {/* Project Section */}
       <div className="flex flex-col w-full">
-        <div className="text-left pt-10 pb-5 border-y-2 border-dashed border-foreground flex justify-between">
-          <h1 className="flex gap-3 items-center mt-auto mx-5 scroll-m-20 text-4xl font-extrabold tracking-tight w-full">
-            <Projector className="w-8 h-8" />
+        <div className="section-heading">
+          <h2 className="flex gap-2 items-center text-xl font-extrabold tracking-tight">
+            <Projector className="w-5 h-5" />
             Projects
-          </h1>
+          </h2>
         </div>
         <ProjectsBento projects={projects} isLoading={projectsLoading} />
       </div>
@@ -203,13 +207,13 @@ function App() {
 
       {/* Recent Blog Section */}
       <div className="flex flex-col w-full">
-        <div className="text-left pt-10 pb-5 border-y-2 border-dashed border-foreground flex justify-between">
-          <h1 className="flex gap-3 items-center mt-auto mx-5 scroll-m-20 text-4xl font-extrabold tracking-tight w-full">
-            <Blocks className="w-8 h-8" />
+        <div className="section-heading">
+          <h2 className="flex gap-2 items-center text-xl font-extrabold tracking-tight">
+            <Blocks className="w-5 h-5" />
             Recent Blog
-          </h1>
+          </h2>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 m-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 my-4">
           {blogsLoading
             ? Array.from({length: 4}).map((_, i) => <SkeletonCard key={i} />)
             : recentBlogs.map((blog) => (
@@ -224,6 +228,7 @@ function App() {
         </div>
       </div>
 
+      </main>
       {/* Footer Section */}
       <Footer />
     </div>

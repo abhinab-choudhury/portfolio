@@ -114,3 +114,19 @@ node --test scripts/sync-contributions.test.mjs
 
 API references: [GitHub pagination](https://docs.github.com/en/graphql/guides/using-pagination-in-the-graphql-api)
 and [Sanity mutations](https://www.sanity.io/docs/http-reference/mutation).
+
+### Portfolio project pages and experience logos
+
+- Home shows four projects; **More projects** opens `/project`. Project titles and
+  **Details** open individual project pages.
+- In Studio → Project, generate **Project URL** from the title for a readable
+  `/project/my-project` link. Existing records without a slug use a title-and-ID
+  fallback; those fallback links continue to work after a slug is added.
+- **Project details (Markdown)** accepts headings, lists, links, fenced code blocks,
+  and GitHub-style tables. Raw HTML is ignored. Publish edits to display them.
+- In Studio → Experience, upload **Company logo**. Missing or failed images fall
+  back to company initials.
+- Deploy the updated Studio and web app. The web app includes Vercel rewrites and
+  a `public/_redirects` file for hosts supporting that convention. Other hosts
+  must serve `index.html` for `/project` and `/project/*` so direct links and reloads work.
+- Run route URL checks with `node --test scripts/project-path.test.mjs`.

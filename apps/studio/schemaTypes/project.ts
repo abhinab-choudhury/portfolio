@@ -11,6 +11,16 @@ export const project = defineType({
   ],
   fields: [
     defineField({
+      name: 'slug', title: 'Project URL', type: 'slug',
+      options: {source: 'project_title', maxLength: 96},
+      description: 'Generate from the title for /project/your-project-name. Keep this stable after sharing the link.',
+      validation: rule => rule.custom(value => !value?.current || /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(value.current) || 'Use lowercase letters, numbers, and single hyphens.'),
+    }),
+    defineField({
+      name: 'details', title: 'Project details (Markdown)', type: 'text', rows: 20,
+      description: 'Write Markdown: ## headings, paragraphs, **bold**, lists, links, tables, and fenced code blocks. Explain the problem, your approach, and results.',
+    }),
+    defineField({
       name: 'order',
       title: 'Project order',
       type: 'number',
