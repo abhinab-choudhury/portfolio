@@ -381,3 +381,11 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--ring); outline-
 .project-markdown :is(th,td) { border: 1px dashed var(--border); padding: .5rem .75rem; text-align: left; }
 .project-markdown img { max-width: 100%; height: auto; }
 @media (min-width: 768px) { .page-shell { padding-inline: 1.5rem; } }
+
+/* Experience copy uses the same Markdown rules at a compact scale. */
+.experience-markdown { font-family: var(--font-mono); font-size: .8125rem; line-height: 1.65; }
+.experience-markdown p { font-size: inherit; }
+.experience-markdown > * + * { margin-top: .5rem; }
+.experience-markdown :is(h4,h5,h6) { margin-top: .75rem; font-size: .875rem; color: var(--foreground); }
+.experience-markdown > :first-child { margin-top: 0; }
+.experience-markdown strong { color: var(--foreground); }

@@ -23,7 +23,13 @@ export const experience = defineType({
         return !endDate || typeof startDate !== 'string' || endDate >= startDate || 'End date must be on or after the start date.'
       }),
     }),
-    defineField({name: 'description', title: 'Description', type: 'text', rows: 4, description: 'A short summary of your work and impact.'}),
+    defineField({
+      name: 'description',
+      title: 'Description (Markdown)',
+      type: 'text',
+      rows: 10,
+      description: 'Describe your work using Markdown: **bold**, *italic*, - bullet points, numbered lists, [links](https://example.com), and fenced code blocks. Separate paragraphs with a blank line. Plain text is also supported.',
+    }),
     defineField({name: 'show', title: 'Show on portfolio', type: 'boolean', initialValue: true}),
   ],
   orderings: [{title: 'Most recent first', name: 'startDateDesc', by: [{field: 'startDate', direction: 'desc'}]}],

@@ -2,6 +2,8 @@ import {useState} from 'react'
 import {useQuery} from '@tanstack/react-query'
 import {ArrowUpRight, BriefcaseBusiness} from 'lucide-react'
 import {getExperience} from '@lib/queries'
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 
 const dateFormat = new Intl.DateTimeFormat('en', {month: 'short', year: 'numeric', timeZone: 'UTC'})
 
@@ -60,7 +62,16 @@ export default function ExperienceSection() {
                 ) : <span>{entry.company}</span>}
                 {entry.location && <span className="text-xs text-muted-foreground">{entry.location}</span>}
               </div>
-              {entry.description && <p className="mt-2 max-w-prose whitespace-pre-line break-words leading-relaxed text-muted-foreground">{entry.description}</p>}
+              {entry.description && <div className="project-markdown experience-markdown mt-2 min-w-0 text-muted-foreground">
+                <ReactMarkdown remarkPlugins={[remarkGfm]} skipHtml components={{
+                  a: ({children, href}) => <a href={href} target={href?.startsWith('http') ? '_blank' : undefined} rel="noopener noreferrer">{children}</a>,
+                  table: ({children}) => <div className="overflow-x-auto"><table>{children}</table></div>,
+                  h1: ({children}) => <h4>{children}</h4>,
+                  h2: ({children}) => <h4>{children}</h4>,
+                  h3: ({children}) => <h4>{children}</h4>,
+                  img: ({src, alt}) => <img src={src} alt={alt || ''} loading="lazy" />,
+                }}>{entry.description}</ReactMarkdown>
+              </div>}
             </li>
           ))}
         </ol>
